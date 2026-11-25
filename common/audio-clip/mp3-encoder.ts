@@ -5,6 +5,8 @@ export interface SerializableAudioBuffer {
     sampleRate: number;
 }
 
+const bitRate = 192;
+
 export default class Mp3Encoder {
     static async encode(blob: Blob, workerFactory: () => Worker | Promise<Worker>): Promise<Blob> {
         return new Promise((resolve, reject) => {
@@ -35,6 +37,7 @@ export default class Mp3Encoder {
                             length: audioBuffer.length,
                             sampleRate: audioBuffer.sampleRate,
                         },
+                        bitRate,
                     });
                     worker.onmessage = (e) => {
                         resolve(new Blob(e.data.buffer, { type: 'audio/mp3' }));

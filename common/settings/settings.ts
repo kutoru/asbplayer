@@ -243,6 +243,10 @@ export interface AnkiSettings {
     readonly updateLastCardSentenceForSameSubtitle: boolean;
     readonly updateLastCardForSameSubtitle: boolean;
     readonly audioPaddingStart: number;
+
+    // TODO: add a bitrate setting everywhere (related types, setting window, consumer components, etc.)
+    readonly audioBitRate: number;
+
     readonly audioPaddingEnd: number;
     readonly maxImageWidth: number;
     readonly maxImageHeight: number;

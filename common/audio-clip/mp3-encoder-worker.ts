@@ -2,7 +2,6 @@ import { WavHeader, Mp3Encoder } from 'lamejs';
 import type { SerializableAudioBuffer } from '@project/common/audio-clip/mp3-encoder';
 
 const samplesPerFrame = 1152;
-const bitRate = 192;
 
 // https://stackoverflow.com/questions/61264581/how-to-convert-audio-buffer-to-mp3-in-javascript
 class Wav {
@@ -70,7 +69,7 @@ class View {
     }
 }
 
-async function encode(audioBuffer: SerializableAudioBuffer) {
+async function encode(audioBuffer: SerializableAudioBuffer, bitRate: number) {
     const wav = new Wav(audioBuffer);
     const channels = wav.header.channels;
     const sampleRate = wav.header.sampleRate;
@@ -124,7 +123,7 @@ export function onMessage() {
     onmessage = async (e) => {
         postMessage({
             command: 'finished',
-            buffer: await encode(e.data.audioBuffer),
+            buffer: await encode(e.data.audioBuffer, e.data.bitRate),
         });
     };
 }
